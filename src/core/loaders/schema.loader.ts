@@ -6,6 +6,8 @@ import type {
   HttpMethod,
   ILoggerService,
   ISchemaLoader,
+  NMongoTunnel,
+  NRabbitMQConnector,
   NSchemaLoader,
   NSchemaService,
 } from "~core-types";
@@ -55,6 +57,17 @@ export class SchemaLoader implements ISchemaLoader {
         this._setDomain(name);
         if (documents.router) {
           this._setRoute(service.service, name, documents.router);
+        }
+        if (documents.broker) {
+          this._setBroker(service.service, name, documents.broker);
+        }
+
+        if (documents.mongo) {
+          this._setMongoSchema(
+            name,
+            documents.mongo.name,
+            documents.mongo.model
+          );
         }
 
         this._applyDomainToService(service.service, domain.domain);
@@ -119,6 +132,47 @@ export class SchemaLoader implements ISchemaLoader {
     }
   }
 
+  private _setBroker(
+    service: string,
+    domain: string,
+    structure: NSchemaLoader.BrokerStructure
+  ): void {
+    const storage = this._domains.get(domain);
+    if (!storage) {
+      this._setDomain(domain);
+      this._setBroker(service, domain, structure);
+      return;
+    }
+
+    for (const name in structure) {
+      const topic = structure[name];
+      const key = `${service}.${domain}.${topic.version}.${name}`;
+      storage.broker.set(key, topic);
+    }
+  }
+
+  private _setMongoSchema<T>(
+    domain: string,
+    name: string,
+    schema: NMongoTunnel.SchemaFn
+  ): void {
+    const storage = this._domains.get(domain);
+    if (!storage) {
+      this._setDomain(domain);
+      this._setMongoSchema<T>(domain, name, schema);
+      return;
+    }
+
+    if (!storage.mongo) {
+      storage.mongo = {
+        name: name,
+        schema: schema,
+      };
+    } else {
+      storage.mongo.schema = schema;
+    }
+  }
+
   private _applyDomainToService(service: string, domain: string): void {
     const sStorage = this.services.get(service);
     if (!sStorage) {
@@ -138,6 +192,7 @@ export class SchemaLoader implements ISchemaLoader {
   private _setDomain(domain: string): void {
     this._domains.set(domain, {
       routes: new Map<string, NSchemaService.Route>(),
+      broker: new Map<string, NRabbitMQConnector.Topic>(),
     });
   }
 }

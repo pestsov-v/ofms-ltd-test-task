@@ -1,6 +1,7 @@
 import type { HttpMethod, Version } from "../common";
 import type { NHttpService, NSchemaService } from "../services";
 import type { NMongoTunnel } from "../tunnels";
+import type { NRabbitMQConnector } from "../connectors";
 
 export interface ISchemaLoader {
   readonly services: NSchemeService.BusinessScheme;
@@ -17,6 +18,11 @@ export namespace NSchemaLoader {
     agents: NSchemeService.Agents
   ) => NMongoTunnel.Schema<T>;
 
+  // broker details
+  export type BrokerStructure<T extends string = string> = {
+    [key in T]: NRabbitMQConnector.Topic;
+  };
+
   // route details
   export type RouterStructure<R extends string = string> = {
     [key in R]: {
@@ -31,6 +37,11 @@ export namespace NSchemaLoader {
   // business scheme structures
   export type DocumentsStructure = {
     router?: RouterStructure;
+    broker?: BrokerStructure;
+    mongo?: {
+      name: string;
+      model: MongoSchemaStructure;
+    };
   };
 
   export type DomainStructure<D extends string = string> = {

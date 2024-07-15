@@ -47,4 +47,19 @@ export namespace NRabbitMQConnector {
   }
 
   export type Topic = QueueTopic | ExchangeTopic;
+
+  // common
+  export type QueueContract = {
+    channel: RabbitMQ.Channel;
+    service: string;
+    domain: string;
+    queue: string;
+    topic: NRabbitMQConnector.QueueTopic;
+  };
+
+  export type ExchangeContract = {
+    channel: RabbitMQ.Channel;
+    queue: string;
+    topic: NRabbitMQConnector.ExchangeTopic;
+  };
 }

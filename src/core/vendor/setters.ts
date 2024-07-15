@@ -35,3 +35,9 @@ export const setMongoSchema = <T>(
 ): NSchemaLoader.MongoSchemaStructure<T> => {
   return structure;
 };
+
+export const setBroker = <E extends string>(
+  structure: NSchemaLoader.BrokerStructure<E>
+): NSchemaLoader.BrokerStructure<E> => {
+  return structure;
+};
