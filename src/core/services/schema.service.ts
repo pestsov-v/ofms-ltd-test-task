@@ -3,7 +3,7 @@ import { Tokens } from "~tokens";
 import { SCHEMA_SERVICES } from "~vendor";
 import { AbstractService } from "./abstract.service";
 
-import type { Events } from "~packages-types";
+import { Events, RabbitMQ } from "~packages-types";
 import {
   ILoggerService,
   ISchemaService,
@@ -11,6 +11,7 @@ import {
   ISchemaLoader,
   NSchemaLoader,
   NMongoTunnel,
+  NRabbitMQConnector,
 } from "~core-types";
 
 @injectable()
@@ -110,6 +111,39 @@ export class SchemaService extends AbstractService implements ISchemaService {
     });
 
     return models;
+  }
+
+  public get brokerMessages(): NSchemaService.BrokerTopics {
+    const queues: Array<Omit<NRabbitMQConnector.QueueContract, "channel">> = [];
+
+    const exchange: Array<
+      Omit<NRabbitMQConnector.ExchangeContract, "channel">
+    > = [];
+
+    this.schema.forEach((sStorage, sName) => {
+      sStorage.forEach((sDomain, dName) => {
+        sDomain.broker.forEach((topic, queue) => {
+          switch (topic.type) {
+            case "queue":
+              queues.push({
+                queue: queue,
+                domain: dName,
+                service: sName,
+                topic: topic,
+              });
+              break;
+            case "exchange":
+              exchange.push({
+                topic: topic,
+                queue: queue,
+              });
+              break;
+          }
+        });
+      });
+    });
+
+    return { queues, exchange };
   }
 
   private _clearSchema() {

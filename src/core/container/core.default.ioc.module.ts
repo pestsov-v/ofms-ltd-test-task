@@ -17,6 +17,7 @@ import {
 import { SchemaLoader } from "../loaders";
 import { Initiator } from "../initiator";
 import { FunctionalityAgent } from "../agents";
+import { MongoTunnel, RabbitMQTunnel } from "../tunnels";
 
 import type {
   IComputeConnector,
@@ -31,6 +32,8 @@ import type {
   IMongoConnector,
   IRedisConnector,
   IRabbitMQConnector,
+  IRabbitMQTunnel,
+  IMongoTunnel,
 } from "~core-types";
 
 export const Module = new inversify.ContainerModule((bind) => {
@@ -68,6 +71,13 @@ export const Module = new inversify.ContainerModule((bind) => {
   bind<IRabbitMQConnector>(Tokens.RabbitMQConnector)
     .to(RabbitMQConnector)
     .inSingletonScope();
+
+  // Tunnels
+  bind<IRabbitMQTunnel>(Tokens.RabbitMQTunnel)
+    .to(RabbitMQTunnel)
+    .inTransientScope();
+  // Tunnels
+  bind<IMongoTunnel>(Tokens.MongoTunnel).to(MongoTunnel).inTransientScope();
 
   // Initiator
   bind<IInitiator>(Tokens.Initiator).to(Initiator).inRequestScope();

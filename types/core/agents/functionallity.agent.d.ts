@@ -1,12 +1,28 @@
-import type { ILoggerService } from "../services";
+import type { ILoggerService, ITaskService } from "../services";
 
 export interface IFunctionalityAgent {
   readonly logger: NFunctionalityAgent.Logger;
+  readonly broker: NFunctionalityAgent.Broker;
+  readonly scheduler: NFunctionalityAgent.Scheduler;
 }
 
 export namespace NFunctionalityAgent {
   export type Logger = {
     api: ILoggerService["api"];
     error: ILoggerService["error"];
+  };
+
+  export type Scheduler = {
+    on: ITaskService["on"];
+    once: ITaskService["once"];
+    off: ITaskService["off"];
+    removeListener: ITaskService["removeListener"];
+    get: ITaskService["get"];
+    set: ITaskService["set"];
+    delete: ITaskService["delete"];
+  };
+
+  export type Broker = {
+    sendToQueue: IRabbitMQTunnel["sendToQueue"];
   };
 }

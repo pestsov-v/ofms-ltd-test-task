@@ -11,6 +11,7 @@ export const Tokens = {
 
   // Tunnels
   MongoTunnel: Symbol("MongoTunnel"),
+  RabbitMQTunnel: Symbol("RabbitMQTunnel"),
 
   // Loaders
   SchemaLoader: Symbol("SchemaLoader"),

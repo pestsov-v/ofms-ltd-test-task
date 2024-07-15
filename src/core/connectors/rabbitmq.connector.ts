@@ -112,7 +112,22 @@ export class RabbitMQConnector
     return this._connection;
   }
 
-  protected async _subscribe(): Promise<void> {}
+  protected async _subscribe(): Promise<void> {
+    this.connection.createChannel((e, channel) => {
+      if (e) {
+        this._loggerService.catch(e);
+        throw e;
+      }
+
+      this._schemaService.brokerMessages.queues.forEach((q) => {
+        this._consumeQueue(channel, q.service, q.topic);
+      });
+
+      this._schemaService.brokerMessages.exchange.forEach((q) => {
+        this._consumeExchange(channel, q.queue, q.topic);
+      });
+    });
+  }
 
   private async _consumeQueue(
     channel: RabbitMQ.Channel,
