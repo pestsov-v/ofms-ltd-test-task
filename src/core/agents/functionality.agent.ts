@@ -1,14 +1,16 @@
 import { inject, injectable } from "~packages";
+import { container } from "~container";
 import { Tokens } from "~tokens";
 
 import type {
+  AnyFn,
   ILoggerService,
   ITaskService,
   NTaskScheduler,
   IFunctionalityAgent,
   NFunctionalityAgent,
-  AnyFn,
   ITaskScheduler,
+  IRabbitMQTunnel,
 } from "~core-types";
 
 @injectable()
@@ -56,6 +58,23 @@ export class FunctionalityAgent implements IFunctionalityAgent {
       },
       delete: <K extends string>(event: K): boolean => {
         return this._taskService.delete(event);
+      },
+    };
+  }
+
+  public get broker(): NFunctionalityAgent.Broker {
+    const tunnel = container.get<IRabbitMQTunnel>(Tokens.RabbitMQTunnel);
+
+    return {
+      sendToQueue: <P>(
+        service: string,
+        domain: string,
+        version: string,
+        queue: string,
+        payload: P
+      ): void => {
+        const name = `${service}.${domain}.${version}.${queue}`;
+        tunnel.sendToQueue<P>(name, payload);
       },
     };
   }

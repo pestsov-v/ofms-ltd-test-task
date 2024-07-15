@@ -1,1 +1,2 @@
-export * from './mongo.tunnel'
+export * from "./mongo.tunnel";
+export * from "./rabbitmq.tunnel";
