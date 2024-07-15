@@ -8,7 +8,12 @@ import {
   HttpService,
   TaskService,
 } from "../services";
-import { ComputeConnector } from "../connectors";
+import {
+  ComputeConnector,
+  MongoConnector,
+  RedisConnector,
+  RabbitMQConnector,
+} from "../connectors";
 import { SchemaLoader } from "../loaders";
 import { Initiator } from "../initiator";
 import { FunctionalityAgent } from "../agents";
@@ -23,6 +28,9 @@ import type {
   ITaskService,
   ISchemaLoader,
   IFunctionalityAgent,
+  IMongoConnector,
+  IRedisConnector,
+  IRabbitMQConnector,
 } from "~core-types";
 
 export const Module = new inversify.ContainerModule((bind) => {
@@ -50,6 +58,15 @@ export const Module = new inversify.ContainerModule((bind) => {
   // Connectors
   bind<IComputeConnector>(Tokens.ComputeConnector)
     .to(ComputeConnector)
+    .inSingletonScope();
+  bind<IMongoConnector>(Tokens.MongoConnector)
+    .to(MongoConnector)
+    .inSingletonScope();
+  bind<IRedisConnector>(Tokens.RedisConnector)
+    .to(RedisConnector)
+    .inSingletonScope();
+  bind<IRabbitMQConnector>(Tokens.RabbitMQConnector)
+    .to(RabbitMQConnector)
     .inSingletonScope();
 
   // Initiator

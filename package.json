@@ -36,14 +36,19 @@
     "node": ">=16.13.0"
   },
   "dependencies": {
+    "amqplib": "^0.10.4",
     "fastify": "^4.28.1",
     "inversify": "^6.0.2",
+    "ioredis": "^5.4.1",
     "mongoose": "^8.5.1",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.5",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.14.10",
+    "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.8",

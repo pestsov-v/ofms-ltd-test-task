@@ -9,11 +9,17 @@ export const Tokens = {
   HttpService: Symbol("HttpService"),
   TaskService: Symbol("TaskService"),
 
+  // Tunnels
+  MongoTunnel: Symbol("MongoTunnel"),
+
   // Loaders
   SchemaLoader: Symbol("SchemaLoader"),
 
   // Connectors
   ComputeConnector: Symbol("ComputeConnector"),
+  MongoConnector: Symbol("MongoConnector"),
+  RedisConnector: Symbol("RedisConnector"),
+  RabbitMQConnector: Symbol("RabbitMQConnector"),
 
   // Initiator
   Initiator: Symbol("Initiator"),

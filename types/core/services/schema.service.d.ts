@@ -1,7 +1,12 @@
-import { IAbstractService } from "./abstract.service";
+import type { IAbstractService } from "./abstract.service";
+import type { NMongoTunnel } from "../tunnels";
+import type { IFunctionalityAgent } from "../agents";
+import type { HttpMethod, Version } from "../common";
+import type { NHttpService } from "./http.service";
 
 export interface ISchemaService extends IAbstractService {
   readonly schema: NSchemaService.BusinessScheme;
+  readonly mongoModels: NMongoTunnel.SchemaInfo<unknown>[];
 }
 
 export namespace NSchemaService {

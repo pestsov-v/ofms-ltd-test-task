@@ -10,6 +10,7 @@ import {
   NSchemaService,
   ISchemaLoader,
   NSchemaLoader,
+  NMongoTunnel,
 } from "~core-types";
 
 @injectable()
@@ -92,6 +93,23 @@ export class SchemaService extends AbstractService implements ISchemaService {
       this._loggerService.catch(e);
       throw e;
     }
+  }
+
+  public get mongoModels(): NMongoTunnel.SchemaInfo[] {
+    const models: NMongoTunnel.SchemaInfo[] = [];
+
+    this.schema.forEach((service) => {
+      service.forEach((domain) => {
+        if (domain.mongo) {
+          models.push({
+            model: domain.mongo.name,
+            getSchema: domain.mongo.schema,
+          });
+        }
+      });
+    });
+
+    return models;
   }
 
   private _clearSchema() {
