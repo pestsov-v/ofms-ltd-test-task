@@ -4,6 +4,7 @@ import libEvents from "events";
 // external
 import { inject, injectable, Container, ContainerModule } from "inversify";
 import libFastify from "fastify";
+import libMongoose from "mongoose";
 
 export const events = {
   EventEmitter: libEvents.EventEmitter,
@@ -18,4 +19,8 @@ export const inversify = {
 
 export const fastify = {
   fastify: libFastify,
+};
+
+export const mongoose = {
+  connect: libMongoose.connect,
 };

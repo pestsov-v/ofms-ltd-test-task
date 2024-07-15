@@ -23,7 +23,9 @@ import type {
   ITaskService,
   ISchemaLoader,
   IFunctionalityAgent,
+  IMongoConnector,
 } from "~core-types";
+import { MongoConnector } from "../connectors/mongo.connector";
 
 export const Module = new inversify.ContainerModule((bind) => {
   // Agents
@@ -50,6 +52,9 @@ export const Module = new inversify.ContainerModule((bind) => {
   // Connectors
   bind<IComputeConnector>(Tokens.ComputeConnector)
     .to(ComputeConnector)
+    .inSingletonScope();
+  bind<IMongoConnector>(Tokens.MongoConnector)
+    .to(MongoConnector)
     .inSingletonScope();
 
   // Initiator
