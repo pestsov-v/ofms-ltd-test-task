@@ -1,0 +1,8 @@
+{
+  "watch": ["src/"],
+  "ext": "ts,js,json,d.ts",
+  "ignore": ["node_modules", "dist"],
+  "exec": "ts-node -r tsconfig-paths/register --files ./src/business-scheme/main.ts",
+  "restartable": "rs",
+  "env": {}
+}
