@@ -7,12 +7,14 @@ import type { Fastify } from "~packages-types";
 import {
   HttpMethod,
   IConfigurationService,
+  IFunctionalityAgent,
   IHttpService,
   ILoggerService,
   ISchemaService,
   NHttpService,
   NSchemaService,
 } from "~core-types";
+import { container } from "~container";
 
 @injectable()
 export class HttpService extends AbstractService implements IHttpService {
@@ -129,7 +131,11 @@ export class HttpService extends AbstractService implements IHttpService {
           path: req.routeOptions.url,
           url: req.url,
         },
-        {}
+        {
+          fnAgent: container.get<IFunctionalityAgent>(
+            Tokens.FunctionalityAgent
+          ),
+        }
       );
 
       if (!result) {

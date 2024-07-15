@@ -11,6 +11,7 @@ import {
 import { ComputeConnector } from "../connectors";
 import { SchemaLoader } from "../loaders";
 import { Initiator } from "../initiator";
+import { FunctionalityAgent } from "../agents";
 
 import type {
   IComputeConnector,
@@ -21,9 +22,15 @@ import type {
   IInitiator,
   ITaskService,
   ISchemaLoader,
+  IFunctionalityAgent,
 } from "~core-types";
 
 export const Module = new inversify.ContainerModule((bind) => {
+  // Agents
+  bind<IFunctionalityAgent>(Tokens.FunctionalityAgent)
+    .to(FunctionalityAgent)
+    .inTransientScope();
+
   // Services
   bind<IConfigurationService>(Tokens.ConfigurationService)
     .to(ConfigurationService)
