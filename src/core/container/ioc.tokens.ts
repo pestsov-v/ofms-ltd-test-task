@@ -1,4 +1,7 @@
 export const Tokens = {
+  // Agents
+  FunctionalityAgent: Symbol("FunctionalityAgent"),
+
   // Services
   ConfigurationService: Symbol("ConfigurationService"),
   LoggerService: Symbol("LoggerService"),
