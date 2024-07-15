@@ -1,4 +1,7 @@
-import { initiator } from "~vendor";
+import { initiator, setServices } from "~vendor";
+import { DataService } from "@data";
+
+setServices([DataService]);
 
 const start = async () => {
   await initiator.start();
