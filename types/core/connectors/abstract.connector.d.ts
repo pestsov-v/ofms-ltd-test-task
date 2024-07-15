@@ -1,1 +1,4 @@
-export interface IAbstractConnector {}
+export interface IAbstractConnector {
+  start(): Promise<void>;
+  stop(): Promise<void>;
+}

@@ -4,6 +4,7 @@ export const Tokens = {
   LoggerService: Symbol("LoggerService"),
   SchemaService: Symbol("SchemaService"),
   HttpService: Symbol("HttpService"),
+  TaskService: Symbol("TaskService"),
 
   // Connectors
   ComputeConnector: Symbol("ComputeConnector"),

@@ -6,6 +6,7 @@ import {
   LoggerService,
   SchemaService,
   HttpService,
+  TaskService,
 } from "../services";
 import { ComputeConnector } from "../connectors";
 
@@ -18,6 +19,7 @@ import type {
   IHttpService,
   ISchemaService,
   IInitiator,
+  ITaskService,
 } from "~core-types";
 
 export const Module = new inversify.ContainerModule((bind) => {
@@ -32,6 +34,7 @@ export const Module = new inversify.ContainerModule((bind) => {
     .to(SchemaService)
     .inSingletonScope();
   bind<IHttpService>(Tokens.HttpService).to(HttpService).inSingletonScope();
+  bind<ITaskService>(Tokens.TaskService).to(TaskService).inSingletonScope();
 
   // Connectors
   bind<IComputeConnector>(Tokens.ComputeConnector)
