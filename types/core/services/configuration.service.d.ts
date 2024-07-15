@@ -39,5 +39,19 @@ export namespace NConfigurationService {
       heartBeat: number;
       vhost: string;
     };
+    services: {
+      scheduler: {
+        enable: boolean;
+        maxTask?: number | "no-validate";
+        periodicity: number;
+        workers: {
+          minWorkers?: number | "max";
+          maxWorkers?: number;
+          maxQueueSize?: number;
+          workerType?: "auto" | "web" | "process" | "thread";
+          workerTerminateTimeout?: number;
+        };
+      };
+    };
   };
 }
