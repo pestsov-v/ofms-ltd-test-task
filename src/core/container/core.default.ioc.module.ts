@@ -7,10 +7,9 @@ import {
   SchemaService,
   HttpService,
 } from "../services";
-
 import { ComputeConnector } from "../connectors";
 
-import { Initiator } from "../inititator";
+import { Initiator } from "../initiator";
 
 import type {
   IComputeConnector,
