@@ -20,11 +20,19 @@
     "paths": {
       // core
       "~vendor": ["src/core/index.ts"],
+      "~utils": ["src/core/utils/index.ts"],
       "~tokens": ["src/core/container/ioc.tokens.ts"],
       "~container": ["src/core/container/container.ts"],
       "~core-types": ["types/core/index.d.ts"],
       "~packages": ["src/packages.ts"],
       "~packages-types": ["types/packages.d.ts"],
+
+      // business-schemas
+      "@ba-common": ["src/business-scheme/common/index.ts"],
+      "@ba-common-types": ["types/business-scheme/common"],
+      "@data": ["src/business-scheme/services/index.ts"],
+      "@data-common": ["src/business-scheme/services/data/common/index.ts"],
+      "@data-types": ["types/business-scheme/data/index.d.ts"]
     }
   },
   "include": ["./src/**/*.ts"],

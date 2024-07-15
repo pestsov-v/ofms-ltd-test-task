@@ -1,12 +1,15 @@
 import { injectable, inject, events } from "~packages";
 import { Tokens } from "~tokens";
+import { SCHEMA_SERVICES } from "~vendor";
 import { AbstractService } from "./abstract.service";
 
 import type { Events } from "~packages-types";
-import type {
+import {
   ILoggerService,
   ISchemaService,
   NSchemaService,
+  ISchemaLoader,
+  NSchemaLoader,
 } from "~core-types";
 
 @injectable()
@@ -18,7 +21,9 @@ export class SchemaService extends AbstractService implements ISchemaService {
 
   constructor(
     @inject(Tokens.LoggerService)
-    protected readonly _loggerService: ILoggerService
+    protected readonly _loggerService: ILoggerService,
+    @inject(Tokens.SchemaLoader)
+    private readonly _schemaLoader: ISchemaLoader
   ) {
     super();
 
@@ -45,6 +50,7 @@ export class SchemaService extends AbstractService implements ISchemaService {
     // TODO: implement context service with async_hooks and get schema snapshot from context service
     this._on("schema-reload", async () => {
       try {
+        this._clearSchema();
         await this._runWorker();
         this._loggerService.system("Business scheme reload");
       } catch (e) {
@@ -63,16 +69,32 @@ export class SchemaService extends AbstractService implements ISchemaService {
     return true;
   }
 
+  private get _schemaServices(): NSchemaLoader.ServiceStructure[] {
+    if (!SCHEMA_SERVICES || SCHEMA_SERVICES.length === 0) {
+      throw new Error("Schema services array is empty.");
+    }
+
+    return SCHEMA_SERVICES;
+  }
+
   protected async destroy(): Promise<void> {
     this._emitter.removeAllListeners();
+    this._clearSchema();
   }
 
   private async _runWorker(): Promise<void> {
     try {
-      // resolve business scheme
+      this._schemaLoader.init();
+      this._schemaLoader.loadStructures(this._schemaServices);
+
+      this._SCHEMA = this._schemaLoader.services;
     } catch (e) {
       this._loggerService.catch(e);
       throw e;
     }
+  }
+
+  private _clearSchema() {
+    this._schemaLoader.destroy();
   }
 }

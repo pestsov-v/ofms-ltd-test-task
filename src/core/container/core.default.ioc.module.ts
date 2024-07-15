@@ -9,7 +9,7 @@ import {
   TaskService,
 } from "../services";
 import { ComputeConnector } from "../connectors";
-
+import { SchemaLoader } from "../loaders";
 import { Initiator } from "../initiator";
 
 import type {
@@ -20,6 +20,7 @@ import type {
   ISchemaService,
   IInitiator,
   ITaskService,
+  ISchemaLoader,
 } from "~core-types";
 
 export const Module = new inversify.ContainerModule((bind) => {
@@ -35,6 +36,9 @@ export const Module = new inversify.ContainerModule((bind) => {
     .inSingletonScope();
   bind<IHttpService>(Tokens.HttpService).to(HttpService).inSingletonScope();
   bind<ITaskService>(Tokens.TaskService).to(TaskService).inSingletonScope();
+
+  // Loaders
+  bind<ISchemaLoader>(Tokens.SchemaLoader).to(SchemaLoader).inTransientScope();
 
   // Connectors
   bind<IComputeConnector>(Tokens.ComputeConnector)

@@ -1,6 +1,8 @@
 import { IAbstractService } from "./abstract.service";
 
-export interface ISchemaService extends IAbstractService {}
+export interface ISchemaService extends IAbstractService {
+  readonly schema: NSchemaService.BusinessScheme;
+}
 
 export namespace NSchemaService {
   // common
