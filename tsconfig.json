@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "newLine": "lf",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": false,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "rootDir": ".",
+    "paths": {
+      // core
+      "~vendor": ["src/core/index.ts"],
+      "~tokens": ["src/core/container/ioc.tokens.ts"],
+      "~container": ["src/core/container/container.ts"],
+      "~core-types": ["types/core/index.d.ts"],
+      "~packages": ["src/packages.ts"],
+      "~packages-types": ["types/packages.d.ts"],
+    }
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "dist"],
+}
