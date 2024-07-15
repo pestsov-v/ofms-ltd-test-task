@@ -5,6 +5,7 @@ import libEvents from "events";
 import { inject, injectable, Container, ContainerModule } from "inversify";
 import libFastify from "fastify";
 import libMongoose from "mongoose";
+import libIoredis from "ioredis";
 
 export const events = {
   EventEmitter: libEvents.EventEmitter,
@@ -23,4 +24,8 @@ export const fastify = {
 
 export const mongoose = {
   connect: libMongoose.connect,
+};
+
+export const ioredis = {
+  ioredis: libIoredis,
 };

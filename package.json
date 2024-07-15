@@ -38,6 +38,7 @@
   "dependencies": {
     "fastify": "^4.28.1",
     "inversify": "^6.0.2",
+    "ioredis": "^5.4.1",
     "mongoose": "^8.5.1",
     "reflect-metadata": "^0.2.2"
   },

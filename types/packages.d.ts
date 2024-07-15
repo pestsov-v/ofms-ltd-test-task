@@ -1,6 +1,7 @@
 // internal
 import type events from "events";
 import type fastify from "fastify";
+import type { Redis, RedisOptions } from "ioredis";
 
 export namespace Events {
   export type EventEmitter = events.EventEmitter;
@@ -24,4 +25,9 @@ export namespace Mongoose {
   export type SaveOptions = mongoose.SaveOptions;
   export type SchemaDefinition<T> = mongoose.SchemaDefinition<T>;
   export type SchemaOptions = mongoose.SchemaOptions;
+}
+
+export namespace IoRedis {
+  export type IoRedis = Redis;
+  export type IoRedisOptions = RedisOptions;
 }

@@ -46,7 +46,7 @@ export class MongoConnector
     };
 
     if (!mongo.enable) {
-      this._loggerService.system(`MongoConnector not enable.`);
+      this._loggerService.warn(`${MongoConnector.name} is disabled.`);
     }
 
     const url = `${mongo.protocol}://${mongo.host}:${mongo.port}`;

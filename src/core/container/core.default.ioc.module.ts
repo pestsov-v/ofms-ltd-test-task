@@ -8,7 +8,11 @@ import {
   HttpService,
   TaskService,
 } from "../services";
-import { ComputeConnector } from "../connectors";
+import {
+  ComputeConnector,
+  MongoConnector,
+  RedisConnector,
+} from "../connectors";
 import { SchemaLoader } from "../loaders";
 import { Initiator } from "../initiator";
 import { FunctionalityAgent } from "../agents";
@@ -24,8 +28,8 @@ import type {
   ISchemaLoader,
   IFunctionalityAgent,
   IMongoConnector,
+  IRedisConnector,
 } from "~core-types";
-import { MongoConnector } from "../connectors/mongo.connector";
 
 export const Module = new inversify.ContainerModule((bind) => {
   // Agents
@@ -55,6 +59,9 @@ export const Module = new inversify.ContainerModule((bind) => {
     .inSingletonScope();
   bind<IMongoConnector>(Tokens.MongoConnector)
     .to(MongoConnector)
+    .inSingletonScope();
+  bind<IRedisConnector>(Tokens.RedisConnector)
+    .to(RedisConnector)
     .inSingletonScope();
 
   // Initiator
