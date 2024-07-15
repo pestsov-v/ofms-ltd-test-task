@@ -2,6 +2,7 @@
 import type events from "events";
 import type fastify from "fastify";
 import type { Redis, RedisOptions } from "ioredis";
+import type libAmqp from "amqplib/callback_api";
 
 export namespace Events {
   export type EventEmitter = events.EventEmitter;
@@ -30,4 +31,13 @@ export namespace Mongoose {
 export namespace IoRedis {
   export type IoRedis = Redis;
   export type IoRedisOptions = RedisOptions;
+}
+
+export namespace RabbitMQ {
+  export type Connection = libAmqp.Connection;
+  export type Channel = libAmqp.Channel;
+  export type QueueOptions = libAmqp.Options.AssertQueue;
+  export type ExchangeOptions = libAmqp.Options.AssertExchange;
+  export type ConsumeOptions = libAmqp.Options.Consume;
+  export type Message = libAmqp.Message;
 }

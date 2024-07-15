@@ -12,6 +12,7 @@ import {
   ComputeConnector,
   MongoConnector,
   RedisConnector,
+  RabbitMQConnector,
 } from "../connectors";
 import { SchemaLoader } from "../loaders";
 import { Initiator } from "../initiator";
@@ -29,6 +30,7 @@ import type {
   IFunctionalityAgent,
   IMongoConnector,
   IRedisConnector,
+  IRabbitMQConnector,
 } from "~core-types";
 
 export const Module = new inversify.ContainerModule((bind) => {
@@ -62,6 +64,9 @@ export const Module = new inversify.ContainerModule((bind) => {
     .inSingletonScope();
   bind<IRedisConnector>(Tokens.RedisConnector)
     .to(RedisConnector)
+    .inSingletonScope();
+  bind<IRabbitMQConnector>(Tokens.RabbitMQConnector)
+    .to(RabbitMQConnector)
     .inSingletonScope();
 
   // Initiator

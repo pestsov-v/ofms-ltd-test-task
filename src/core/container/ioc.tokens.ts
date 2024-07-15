@@ -19,6 +19,7 @@ export const Tokens = {
   ComputeConnector: Symbol("ComputeConnector"),
   MongoConnector: Symbol("MongoConnector"),
   RedisConnector: Symbol("RedisConnector"),
+  RabbitMQConnector: Symbol("RabbitMQConnector"),
 
   // Initiator
   Initiator: Symbol("Initiator"),

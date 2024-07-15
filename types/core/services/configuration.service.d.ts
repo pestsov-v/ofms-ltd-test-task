@@ -27,5 +27,17 @@ export namespace NConfigurationService {
         port: number;
       };
     };
+    rabbitMQ: {
+      enable: boolean;
+      protocol: string;
+      host: string;
+      port: number;
+      username: string;
+      password: string;
+      locale: string;
+      frameMax: number;
+      heartBeat: number;
+      vhost: string;
+    };
   };
 }
